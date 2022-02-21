@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
+import { CustomerList } from "./customers/CustomerList"
+import { EmployeeList } from "./employees/EmployeeList"
+import { TicketList } from "./serviceTickets/TicketList"
 
 export const Repairs = () => {
-    const [customers, assignCustomers] = useState([])
-
-    useEffect(
-        () => {
-            fetch("http://localhost:8088/customers")
-                .then(res => res.json())
-                .then(customerData => {
-                        assignCustomers(customerData)
-                    })
-        },
-        []
-    )
 
     return (
         <>
         <h1>Honey Rae's Repair Shop</h1>
-        {
-            customers.map(customer => {
-                return <div>{customer.name}</div>
-            })
-        }
+        
+        <h2>Customer List:</h2>
+        <CustomerList />
+
+        <h2>Employee List:</h2>
+        <EmployeeList />
+
+        <h2>Ticket List:</h2>
+        <TicketList />
+
         </>
     )
 }
