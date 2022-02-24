@@ -5,6 +5,8 @@ import { EmployeeList } from "./employees/EmployeeList"
 import { TicketForm } from "./serviceTickets/TicketForm"
 import { TicketList } from "./serviceTickets/TicketList"
 import { HiringForm } from "./employees/HiringForm"
+import { Ticket } from "./serviceTickets/Ticket"
+import { Employee } from "./employees/Employee"
 
 export const ApplicationViews = () => {
     return (
@@ -21,6 +23,10 @@ export const ApplicationViews = () => {
                 <HiringForm />
             </Route>
 
+            <Route exact path="/employees/:employeeId(\d+)">
+                <Employee />
+            </Route>
+
             <Route exact path="/serviceTickets">
                 <TicketList />
             </Route>
@@ -28,6 +34,11 @@ export const ApplicationViews = () => {
             <Route path="/serviceTickets/create">
                 <TicketForm />
             </Route>
+
+            <Route exact path="/serviceTickets/:ticketId(\d+)">
+                <Ticket />
+            </Route>
+
         </>
     )
 }

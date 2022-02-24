@@ -1,9 +1,10 @@
 import React, { useEffect, useState} from "react"
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
-
+import { useHistory, Link } from "react-router-dom/cjs/react-router-dom.min"
+import "./Ticket.css"
 
 export const TicketList = () => {
     const [tickets, setTickets] = useState([])
+    const [message, showMessage] = useState("")
 
     const history = useHistory()
 
@@ -19,18 +20,34 @@ export const TicketList = () => {
         []
     )
 
+    useEffect(
+        () => {
+            if (tickets.length === 1) {
+                showMessage("You have 1 ticket")
+            } else {
+                showMessage(`You have ${tickets.length} tickets`)
+            }
+        },
+        [tickets]
+    )
+
     return (
         <>
         <div>
             <button onClick={() => history.push("/serviceTickets/create")}>Create Ticket</button>
         </div>
+        <p>{message}</p>
+
             {
                 tickets.map(ticket => {
                     return <div key={`ticket--${ticket.id}`}>
-                                <p> {ticket.description} submitted by {ticket.customer.name}
-                                    and worked on by {ticket.employee.name} </p>
+                                <p className={ticket.emergency ? "emergency" : ""}>
+                                    {ticket.emergency ? "🚑" : ""} <Link to={`/serviceTickets/${ticket.id}`}>{ticket.description}</Link>
+                                </p>
                             </div>
                 })
+
+                
             }
         </>
     )
